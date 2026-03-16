@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<!-- 启用 Windows Forms 以支持 FolderBrowserDialog -->
+		<UseWindowsForms>true</UseWindowsForms>
+
+		<!-- [新增] 1. 指定生成的 EXE 文件的图标 -->
+		<ApplicationIcon>AppIcon.ico</ApplicationIcon>
+		<!-- ========================================== -->
+		<!--      核心打包配置：单文件 + Win7兼容       -->
+		<!-- ========================================== -->
+
+		<!-- 1. 指定运行时为 Windows 64位 -->
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+		<!-- 2. 开启独立发布（不依赖目标电脑的 .NET） -->
+		<SelfContained>true</SelfContained>
+
+		<!-- 3. 开启单文件发布（将 DLL 合并） -->
+		<PublishSingleFile>true</PublishSingleFile>
+
+		<!-- 4. [最关键] 将原生 DLL (如 vcruntime, d3dcompiler) 也打包进 EXE -->
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+
+		<!-- 5. (可选) 将资源文件也打包进去 -->
+		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+
+		<!-- 6. 启用 ReadyToRun (加速启动) -->
+		<PublishReadyToRun>true</PublishReadyToRun>
+		
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Remove="System.Windows.Forms" />
+	</ItemGroup>
+	<!-- [新增] 2. 将图标文件包含为资源，以便 WPF 窗口在运行时可以调用 -->
+	<ItemGroup>	
+		<Resource Include="AppIcon.ico" />
+	</ItemGroup>
+
+
+</Project>
